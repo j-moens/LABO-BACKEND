@@ -22,12 +22,12 @@ export class BrandController
  
 
     //CREATE ( INSERT) - POST
-    public static async createbrands(req: Request, res:Response, next: NextFunction)
+    public static async createBrand(req: Request, res:Response, next: NextFunction)
     {
         try{
             var brand = new Brand(req.body);
 
-        const brands =  await BrandModel.insertbrand(brand);
+        const brands =  await BrandModel.insertBrand(brand);
 
         
         res.json(brands);
@@ -38,11 +38,11 @@ export class BrandController
     }
 
     //DELETE
-    public static async deletebrand(req: Request, res:Response, next: NextFunction)
+    public static async deleteBrand(req: Request, res:Response, next: NextFunction)
     {
         try{
 
-            const del = await BrandModel.deletebrandById(req.params.id);
+            const del = await BrandModel.deleteBrandById(req.params.id);
             res.json(del);
         }
         catch(err)
@@ -52,11 +52,11 @@ export class BrandController
     }
 
     //UPDATE-PUT
-    public static async updatebrand(req: Request, res:Response, next: NextFunction)
+    public static async updateBrand(req: Request, res:Response, next: NextFunction)
     {
         try{
             var brand = new Brand(req.body);
-            const up = await BrandModel.updatebrandById(req.params.id, brand);
+            const up = await BrandModel.updateBrandById(req.params.id, brand);
             res.json(up);
         }
         catch(err)

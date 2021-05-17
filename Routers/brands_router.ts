@@ -13,11 +13,11 @@ export class BrandRouter
 
         this.router.get('/:id', BrandController.getOneById);
 
-        this.router.post('/create', BrandController.createbrands);
+        this.router.post('/create', BrandController.createBrand);
 
-        this.router.delete('/:id', BrandController.deletebrand);
+        this.router.delete('/:id', BrandController.deleteBrand);
 
-        this.router.put('/:id', BrandController.updatebrand);
+        this.router.put('/:id', BrandController.updateBrand);
 
     }
 }

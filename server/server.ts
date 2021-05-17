@@ -6,6 +6,7 @@ import { UserCommonRouter } from '../Routers/user_common.router';
 import {UserRouter} from '../Routers/users_router'
 import { ProductRouter } from '../Routers/products_router';
 import { BrandRouter } from '../Routers/brands_router';
+import { ModelRouter } from '../Routers/model_router';
 
 
 export class Server 
@@ -40,6 +41,7 @@ export class Server
         //this.app.use('/api/users-common', new UserCommonRouter().router); // usercommon router (create and get by username)
         this.app.use('/api/products', new ProductRouter().router);
         this.app.use('/api/brands', new BrandRouter().router);
+        this.app.use('/api/models', new ModelRouter().router);
     
     }
     public start()

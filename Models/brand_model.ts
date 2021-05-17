@@ -46,7 +46,7 @@ export class BrandModel
 
 
     //INSERT en POST
-    public static async insertbrand(brand)
+    public static async insertBrand(brand)
     {
         return connect().then((conn) =>
         {
@@ -59,7 +59,7 @@ export class BrandModel
     }
 
     //DEELETE
-    public static async deletebrandById(id)
+    public static async deleteBrandById(id)
     {
         return connect().then((conn) =>
         {
@@ -72,7 +72,7 @@ export class BrandModel
     }
 
     //UPDDATE
-    public static async updatebrandById(id, brand)
+    public static async updateBrandById(id, brand)
     {
         return connect().then((conn) =>
         {
