@@ -4,6 +4,7 @@ import * as fs from 'fs';
 import * as cors from 'cors';
 import { UserCommonRouter } from '../Routers/user_common.router';
 import {UserRouter} from '../Routers/users_router'
+import { ProductRouter } from '../Routers/products_router';
 
 
 export class Server 
@@ -36,7 +37,7 @@ export class Server
         //this.app.use('/api/token');
         this.app.use('/api/users', new UserRouter().router);
         //this.app.use('/api/users-common', new UserCommonRouter().router); // usercommon router (create and get by username)
- 
+        this.app.use('/api/products', new ProductRouter().router);
     
     }
     public start()

@@ -67,7 +67,7 @@ export class UserController
 
 
     
-    //GET ONE BY NAME
+    // GET ONE BY NAME
     // public static async getOneByName(req: Request, res:Response, next: NextFunction)
     // {
     //     try{
