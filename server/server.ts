@@ -7,6 +7,10 @@ import {UserRouter} from '../Routers/users_router'
 import { ProductRouter } from '../Routers/products_router';
 import { BrandRouter } from '../Routers/brands_router';
 import { ModelRouter } from '../Routers/model_router';
+import { DetailsPhoneRouter } from '../Routers/details_phone_router';
+import { PromotionRouter } from '../Routers/promotions_router';
+import { OrderProductRouter } from '../Routers/order_products';
+import { OrderRouter } from '../Routers/order_router';
 
 
 export class Server 
@@ -42,6 +46,10 @@ export class Server
         this.app.use('/api/products', new ProductRouter().router);
         this.app.use('/api/brands', new BrandRouter().router);
         this.app.use('/api/models', new ModelRouter().router);
+        this.app.use('/api/details_phone', new DetailsPhoneRouter().router);
+        this.app.use('/api/promotions', new PromotionRouter().router);
+        this.app.use('/api/order_products', new OrderProductRouter().router);
+        this.app.use('/api/orders', new OrderRouter().router);
     
     }
     public start()

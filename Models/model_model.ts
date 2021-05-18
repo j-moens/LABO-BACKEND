@@ -79,9 +79,9 @@ export class ModelModel
         return connect().then((conn) =>
         {
             return conn.query('UPDATE model SET name=?, fk_brand=? WHERE id=?',
-            [model.name, id]).then((results)=>
+            [model.name, model.fk_brand, id]).then((results)=>
             {
-                return this.getOneById(id); // on renvoie l'utilisateur qui a été modifié
+                return this.getOneById(id); 
             });
            
         });

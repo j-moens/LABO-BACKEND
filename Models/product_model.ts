@@ -29,7 +29,7 @@ export class ProductModel
     {
         return connect().then((conn) =>
         {
-            return conn.query('SELECT id, name, description, price, reference FROM products').then((results) => // je sélectionne tout sauf le password, qui peut être visible dans la console du front....
+            return conn.query('SELECT id, name, description, price, reference FROM products').then((results) =>
             {
                 return results;
             });
