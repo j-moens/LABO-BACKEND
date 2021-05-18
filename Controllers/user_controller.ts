@@ -67,19 +67,19 @@ export class UserController
 
 
     
-    // GET ONE BY NAME
-    // public static async getOneByName(req: Request, res:Response, next: NextFunction)
-    // {
-    //     try{
-    //      const results =  await UserModel.getOneByName(req.params.name);
-    //      res.json(results);
+    //GET ONE BY NAME
+    public static async getOneByName(req: Request, res:Response, next: NextFunction)
+    {
+        try{
+         const results =  await UserModel.getOneByName(req.params.name);
+         res.json(results);
        
-    //     }
-    // catch(err)
-    //     {
-    //     res.status(500).send(err);
-    //     }
-    // }
+        }
+    catch(err)
+        {
+        res.status(500).send(err);
+        }
+    }
 
 
 

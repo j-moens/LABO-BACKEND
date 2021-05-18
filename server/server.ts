@@ -11,6 +11,7 @@ import { DetailsPhoneRouter } from '../Routers/details_phone_router';
 import { PromotionRouter } from '../Routers/promotions_router';
 import { OrderProductRouter } from '../Routers/order_products';
 import { OrderRouter } from '../Routers/order_router';
+import { AuthentificationRouter } from '../Routers/authentification_router';
 
 
 export class Server 
@@ -40,9 +41,6 @@ export class Server
     }
     private init_routes()
     {
-        //this.app.use('/api/token');
-        this.app.use('/api/users', new UserRouter().router);
-        //this.app.use('/api/users-common', new UserCommonRouter().router); // usercommon router (create and get by username)
         this.app.use('/api/products', new ProductRouter().router);
         this.app.use('/api/brands', new BrandRouter().router);
         this.app.use('/api/models', new ModelRouter().router);
@@ -50,6 +48,18 @@ export class Server
         this.app.use('/api/promotions', new PromotionRouter().router);
         this.app.use('/api/order_products', new OrderProductRouter().router);
         this.app.use('/api/orders', new OrderRouter().router);
+        
+
+        this.app.use('/api/token', new AuthentificationRouter().router);
+        this.app.use('/api/users-common', new UserCommonRouter().router); // usercommon router (create and get by username)
+        this.app.use(AuthentificationRouter.checkAuthorization);  // require authenification from here
+        this.app.use(AuthentificationRouter.checkAdmin);  // require admin privileges from here
+
+
+        this.app.use('/api/users', new UserRouter().router);
+
+        
+     
     
     }
     public start()

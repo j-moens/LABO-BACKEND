@@ -116,61 +116,61 @@ export class UserModel
 
 
 
-    //AUthentification
+    AUthentification
 
-    // public static async checkPassword(username: string, password: string): Promise<any>
-    // {
-    //     try
-    //     {
-    //         let res = await connect().then((conn) => 
-    //         {
-    //             return conn.query('SELECT id, username, password, email, admin FROM users WHERE username=?', username).then((results) =>
-    //             {
-    //                 return results;
-    //             });
-    //         });
+    public static async checkPassword(email: string, password: string): Promise<any>
+    {
+        try
+        {
+            let res = await connect().then((conn) => 
+            {
+                return conn.query('SELECT id, firstname, lastname, password, email, admin FROM users WHERE email=?', email).then((results) =>
+                {
+                    return results;
+                });
+            });
     
-    //         if(res[0].password === password)
-    //         {
-    //             return {success:true, admin: res[0].admin};
-    //         }
-    //     } catch(err)
-    //     {
-    //         console.error('[ERROR] checkPassword username : ' + username + ' password : ' + password);
-    //         //console.error(err);
-    //     }
-    //     return {success:false, admin:false};
-    // }
+            if(res[0].password === password)
+            {
+                return {success:true, admin: res[0].admin};
+            }
+        } catch(err)
+        {
+            console.error('[ERROR] checkPassword username : ' + email+ ' password : ' + password);
+            //console.error(err);
+        }
+        return {success:false, admin:false};
+    }
 
     
 
-    // // GET ONE BY NAME
+    // GET ONE BY NAME
 
-    // public static async getOneByName(name:any)
-    // {
-    //     return connect().then((conn) =>
-    //     {
-    //         return conn.query('SELECT id, username, email FROM users where username=?', name).then((results)=>
-    //         {
-    //             return results;
-    //         });
+    public static async getOneByName(name:any)
+    {
+        return connect().then((conn) =>
+        {
+            return conn.query('SELECT id, firstname, lastname, email FROM users where email=?', name).then((results)=>
+            {
+                return results;
+            });
            
-    //     });
-    // }
+        });
+    }
 
-    // //GET ONE By EMAIL
+    //GET ONE By EMAIL
 
-    // public static async getOneBEmail(email:any)
-    // {
-    //     return connect().then((conn) =>
-    //     {
-    //         return conn.query('SELEC T id, username, email FROM users where email=?', email).then((results)=>
-    //         {
-    //             return results;
-    //         });
+    public static async getOneBEmail(email:any)
+    {
+        return connect().then((conn) =>
+        {
+            return conn.query('SELECT id, firstname, lastname, email FROM users where email=?', email).then((results)=>
+            {
+                return results;
+            });
            
-    //     });
-    //}
+        });
+    }
 
     
 
