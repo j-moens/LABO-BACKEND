@@ -80,7 +80,7 @@ export class UserModel
         return connect().then((conn) =>
         {
             return conn.query('INSERT INTO users (firstname, lastname, email, phone_number, password, number_street, street, zipcode, city, country, extra_info, gender, birth_date) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)',
-            [user.firstname, user.lastname, user.email, user.phone_number, user.password, user.number_street, user.street, user.zipcode, user.city, user.country, user.extra_info, user.gender, user.birth_date ]).then(() =>
+            [user.firstname, user.lastname, user.email, user.phone_number, user.password, user.number_street, user.street, user.zipcode, user.city, user.country, user.extra_info, user.gender, null ]).then(() =>
             {
                 return this.getAll();
             });

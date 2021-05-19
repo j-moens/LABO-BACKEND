@@ -48,10 +48,10 @@ export class Server
         this.app.use('/api/promotions', new PromotionRouter().router);
         this.app.use('/api/order_products', new OrderProductRouter().router);
         this.app.use('/api/orders', new OrderRouter().router);
-        
+        this.app.use('/api/users-common', new UserCommonRouter().router); // usercommon router (create and get by username)
 
         this.app.use('/api/token', new AuthentificationRouter().router);
-        this.app.use('/api/users-common', new UserCommonRouter().router); // usercommon router (create and get by username)
+      
         this.app.use(AuthentificationRouter.checkAuthorization);  // require authenification from here
         this.app.use(AuthentificationRouter.checkAdmin);  // require admin privileges from here
 
