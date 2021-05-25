@@ -2,7 +2,7 @@ import * as express from 'express';
 import * as https from 'https';
 import * as fs from 'fs';
 import * as cors from 'cors';
-import { UserCommonRouter } from '../Routers/user_common.router';
+import { UserCommonRouter } from '../Routers/user_common_router';
 import {UserRouter} from '../Routers/users_router'
 import { ProductRouter } from '../Routers/products_router';
 import { BrandRouter } from '../Routers/brands_router';
@@ -53,11 +53,13 @@ export class Server
         this.app.use('/api/token', new AuthentificationRouter().router);
       
         this.app.use(AuthentificationRouter.checkAuthorization);  // require authenification from here
-        this.app.use(AuthentificationRouter.checkAdmin);  // require admin privileges from here
-
 
         this.app.use('/api/users', new UserRouter().router);
 
+        this.app.use(AuthentificationRouter.checkAdmin);  // require admin privileges from here
+
+
+        
         
      
     

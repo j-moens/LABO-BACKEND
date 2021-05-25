@@ -7,6 +7,7 @@ export class Product
     name: string;
     price : number;
     reference: number;
+    fk_model: number;
 
 
     constructor(data: any)
@@ -16,6 +17,7 @@ export class Product
         this.name = data.name;
         this.price = data.price;
         this.reference = data.reference ;
+        this.fk_model = data.fk_model ;
   
       
     }
@@ -29,7 +31,7 @@ export class ProductModel
     {
         return connect().then((conn) =>
         {
-            return conn.query('SELECT id, name, description, price, reference FROM products').then((results) =>
+            return conn.query('SELECT * FROM products').then((results) =>
             {
                 return results;
             });
@@ -57,8 +59,8 @@ export class ProductModel
     {
         return connect().then((conn) =>
         {
-            return conn.query('INSERT INTO products (name, description, price, reference) VALUES (?, ?, ?, ?)',
-            [product.name, product.description, product.price, product.reference]).then(() =>
+            return conn.query('INSERT INTO products (name, description, price, reference, fk_model) VALUES (?, ?, ?, ?, ?)',
+            [product.name, product.description, product.price, product.reference, product.fk_model]).then(() =>
             {
                 return this.getAll();
             });
@@ -83,75 +85,14 @@ export class ProductModel
     {
         return connect().then((conn) =>
         {
-            return conn.query('UPDATE products SET name=?, description=?, price=?, reference=? WHERE id=?',
-            [product.name, product.description, product.price, product.reference,id]).then((results)=>
+            return conn.query('UPDATE products SET name=?, description=?, price=?, reference=?, fk_model=? WHERE id=?',
+            [product.name, product.description, product.price, product.reference, product.fk_model,id]).then((results)=>
             {
-                return this.getOneById(id); // on renvoie l'utilisateur qui a été modifié
+                return this.getOneById(id); 
             });
            
         });
     }
-
-
-
-    //AUthentification
-
-    // public static async checkPassword(username: string, password: string): Promise<any>
-    // {
-    //     try
-    //     {
-    //         let res = await connect().then((conn) => 
-    //         {
-    //             return conn.query('SELECT id, username, password, email, admin FROM users WHERE username=?', username).then((results) =>
-    //             {
-    //                 return results;
-    //             });
-    //         });
-    
-    //         if(res[0].password === password)
-    //         {
-    //             return {success:true, admin: res[0].admin};
-    //         }
-    //     } catch(err)
-    //     {
-    //         console.error('[ERROR] checkPassword username : ' + username + ' password : ' + password);
-    //         //console.error(err);
-    //     }
-    //     return {success:false, admin:false};
-    // }
-
-    
-
-    // // GET ONE BY NAME
-
-    // public static async getOneByName(name:any)
-    // {
-    //     return connect().then((conn) =>
-    //     {
-    //         return conn.query('SELECT id, username, email FROM users where username=?', name).then((results)=>
-    //         {
-    //             return results;
-    //         });
-           
-    //     });
-    // }
-
-    // //GET ONE By EMAIL
-
-    // public static async getOneBEmail(email:any)
-    // {
-    //     return connect().then((conn) =>
-    //     {
-    //         return conn.query('SELEC T id, username, email FROM users where email=?', email).then((results)=>
-    //         {
-    //             return results;
-    //         });
-           
-    //     });
-    //}
-
-    
-
 
 
 

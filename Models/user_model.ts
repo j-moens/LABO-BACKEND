@@ -132,14 +132,14 @@ export class UserModel
     
             if(res[0].password === password)
             {
-                return {success:true, admin: res[0].admin};
+                return {success:true, admin: res[0].admin, id: res[0].id};
             }
         } catch(err)
         {
             console.error('[ERROR] checkPassword username : ' + email+ ' password : ' + password);
             //console.error(err);
         }
-        return {success:false, admin:false};
+        return {success:false, admin:false, id:0};
     }
 
     
