@@ -107,7 +107,7 @@ export class AuthentificationRouter
         {
             const token = jwt.sign({ email: req.body.email, admin: result.admin }, 
                 'my-super-secret-key',
-                { expiresIn: 600 }); // le token exprire toutes les 60 secondes
+                { expiresIn: 600 }); // le token exprire toutes les 600 secondes
             res.json({ success: true, message: 'logged in', token: token, admin: result.admin, id: result.id });
         }else {
             res.json({ success: false, message: 'bad email and or password' });

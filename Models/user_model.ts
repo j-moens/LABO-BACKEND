@@ -101,12 +101,12 @@ export class UserModel
     }
 
     //UPDDATE
-    public static async updateUserById(id, user)
+    public static async updateUserById(id: any, user: any)
     {
         return connect().then((conn) =>
         {
-            return conn.query('UPDATE users SET firstname=?, lastname=?, email=?, phone_number=?, password=?, number_street=?, street=?, zipcode=?, city=?, country=?, extra_info=?, gender=?, birth_date=? WHERE id=?',
-            [user.firstname, user.lastname, user.email, user.phone_number, user.password, user.number_street, user.street, user.zipcode, user.city, user.country, user.extra_info, user.gender, user.birth_date, id]).then((results)=>
+            return conn.query('UPDATE users SET firstname=?, lastname=?, email=?, phone_number=?,  number_street=?, street=?, zipcode=?, city=?, country=?, extra_info=?, gender=?, birth_date=? WHERE id=?',
+            [user.firstname, user.lastname, user.email, user.phone_number, user.number_street, user.street, user.zipcode, user.city, user.country, user.extra_info, user.gender, user.birth_date, id]).then((results)=>
             {
                 return this.getOneById(id); // on renvoie l'utilisateur qui a été modifié
             });
@@ -114,9 +114,19 @@ export class UserModel
         });
     }
 
+    public static async updatePassword(user: User)
+    {
+        return connect().then((conn) => 
+        {
+            return conn.query('UPDATE users SET password=? WHERE id=?', 
+            [user.password, user.id]).then((results) => 
+            {
+                return this.getOneById(user.id);
+            });
+        });
+    }
 
 
-    AUthentification
 
     public static async checkPassword(email: string, password: string): Promise<any>
     {
@@ -160,7 +170,7 @@ export class UserModel
 
     //GET ONE By EMAIL
 
-    public static async getOneBEmail(email:any)
+    public static async getOneByEmail(email:any)
     {
         return connect().then((conn) =>
         {

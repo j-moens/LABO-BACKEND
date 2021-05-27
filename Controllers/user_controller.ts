@@ -1,10 +1,10 @@
 import { Router, Request, Response, NextFunction } from 'express';
 import{UserModel, User} from '../Models/user_model';
 
-export class UserController
+export namespace UserController
 {
     //GET ALL
-    public static async getAll(req: Request, res:Response, next: NextFunction)
+    export async function getAll(req: Request, res:Response, next: NextFunction)
     {
          const results =  await UserModel.getAll();
          res.json(results);
@@ -12,17 +12,44 @@ export class UserController
     }
 
     //GET ONE BY ID
-    public static async getOneById(req: Request, res:Response, next: NextFunction)
+    export async function getOneById(req: Request, res:Response, next: NextFunction)
     {
          const results =  await UserModel.getOneById(req.params.id);
          res.json(results);
        
     }
 
+      //GET ONE BY NAME
+      export async function getOneByName(req: Request, res:Response, next: NextFunction)
+      {
+          try{
+           const results =  await UserModel.getOneByName(req.params.name);
+           res.json(results);
+         
+          }
+      catch(err)
+          {
+          res.status(500).send(err);
+          }
+      }
+
+      //GET ONE BY EMAIL
+
+      export async function getOneByEmail(req: Request, res: Response, next: NextFunction)
+      {
+          try
+          {
+              const results = await UserModel.getOneByEmail(req.params.email);
+              res.json(results);
+          } catch(err)
+          {
+              res.status(500).send(err);
+          }
+      }
  
 
     //CREATE ( INSERT) - POST
-    public static async createUsers(req: Request, res:Response, next: NextFunction)
+    export async function createUsers(req: Request, res:Response, next: NextFunction)
     {
         try{
             var user = new User(req.body);
@@ -38,7 +65,7 @@ export class UserController
     }
 
     //DELETE
-    public static async deleteUser(req: Request, res:Response, next: NextFunction)
+    export async function deleteUser(req: Request, res:Response, next: NextFunction)
     {
         try{
 
@@ -52,7 +79,7 @@ export class UserController
     }
 
     //UPDATE-PUT
-    public static async updateUser(req: Request, res:Response, next: NextFunction)
+    export async function updateUser(req: Request, res:Response, next: NextFunction)
     {
         try{
             var user = new User(req.body);
@@ -65,21 +92,64 @@ export class UserController
         }
     }
 
+    //update password
 
-    
-    //GET ONE BY NAME
-    public static async getOneByName(req: Request, res:Response, next: NextFunction)
+    export async function updateUserPassword(req, res: Response, next: NextFunction)
     {
-        try{
-         const results =  await UserModel.getOneByName(req.params.name);
-         res.json(results);
-       
-        }
-    catch(err)
+        try
         {
-        res.status(500).send(err);
+            const user = new User(req.body);
+            const email = req.decoded.email;
+            if(email === user.email)
+            {
+                const results = await UserModel.updatePassword(user);
+                res.json(results);
+            } else 
+            {
+                res.status(403).send({
+                    success: false,
+                    message: 'You can\'t change that user.'
+                });
+            }
+        } catch(err)
+        {
+            res.status(500).send(err);
         }
     }
+
+    //updateCOnnectedUser
+
+    export async function updateConnectedUser(req, res: Response, next: NextFunction)
+    {
+        try
+        {
+            // Get with :id from DB
+            const result = await UserModel.getOneById(req.params.id);
+            const user = new User(result[0]);
+            const updatedUser = new User(req.body);
+            // Get the username from the token
+            const email = req.decoded.email;
+
+            if(email === user.email)
+            {
+                const results = await UserModel.updateUserById(req.params.id, updatedUser);
+                res.json(results);
+            } else 
+            {
+                res.status(403).send({
+                    success: false,
+                    message: 'You can\'t change that user.'
+                });
+            }
+        } catch(err)
+        {
+            res.status(500).send(err);
+        }
+    }
+
+
+    
+  
 
 
 
