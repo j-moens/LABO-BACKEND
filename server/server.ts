@@ -60,12 +60,6 @@ export class Server
 
         this.app.use('/api/users', new UserRouter().router);
 
-       
-
-
-        
-        
-     
     
     }
     public start()

@@ -83,7 +83,22 @@ export namespace UserController
     {
         try{
             var user = new User(req.body);
+            
             const up = await UserModel.updateUserById(req.params.id, user);
+            res.json(up);
+        }
+        catch(err)
+        {
+            res.status(500).send(err);
+        }
+    }
+
+    export async function updateUserCommon(req: Request, res:Response, next: NextFunction)
+    {
+        try{
+            var user = new User(req.body);
+            
+            const up = await UserModel.updateUsersCommonById(req.params.id, user);
             res.json(up);
         }
         catch(err)
@@ -132,8 +147,18 @@ export namespace UserController
 
             if(email === user.email)
             {
-                const results = await UserModel.updateUserById(req.params.id, updatedUser);
-                res.json(results);
+                if (req.decoded.admin)
+                {
+                    
+                    const results = await UserModel.updateUserById(req.params.id, updatedUser);
+                    res.json(results);
+                }else
+                {
+                    const results = await UserModel.updateUsersCommonById(req.params.id, updatedUser);
+                    res.json(results);
+                }
+
+                
             } else 
             {
                 res.status(403).send({
