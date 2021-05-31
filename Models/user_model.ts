@@ -1,4 +1,5 @@
 import{ connect} from'../Connections/myfone_db';
+import * as moment from 'moment';
 
 export class User
 {
@@ -80,7 +81,8 @@ export class UserModel
         return connect().then((conn) =>
         {
             return conn.query('INSERT INTO users (firstname, lastname, email, phone_number, password, number_street, street, zipcode, city, country, extra_info, gender, birth_date) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)',
-            [user.firstname, user.lastname, user.email, user.phone_number, user.password, user.number_street, user.street, user.zipcode, user.city, user.country, user.extra_info, user.gender, user.birth_date ]).then(() =>
+            [user.firstname, user.lastname, user.email, user.phone_number, user.password, user.number_street, user.street, user.zipcode, user.city, 
+                user.country, user.extra_info, user.gender,  moment(user.birth_date).format('YYYY-MM-DD') ]).then(() =>
             {
                 return this.getAll();
             });
@@ -100,13 +102,14 @@ export class UserModel
         });
     }
 
-    //UPDDATE 
+    //UPDDATE  for users
     public static async updateUsersCommonById(id: any, user: any)
     {
         return connect().then((conn) =>
         {
-            return conn.query('UPDATE users SET firstname=?, lastname=?, email=?, phone_number=?,  number_street=?, street=?, zipcode=?, city=?, country=?, extra_info=?, gender=?, birth_date=? WHERE id=?',
-            [user.firstname, user.lastname, user.email, user.phone_number, user.number_street, user.street, user.zipcode, user.city, user.country, user.extra_info, user.gender, user.birth_date, id]).then((results)=>
+            return conn.query("UPDATE users SET firstname=?, lastname=?, email=?, phone_number=?, number_street=?, street=?, zipcode=?, city=?, country=?, extra_info=?, gender=?, birth_date=? WHERE id=?",
+            [user.firstname, user.lastname, user.email, user.phone_number, user.number_street, user.street, 
+                user.zipcode, user.city, user.country, user.extra_info, user.gender, moment(user.birth_date).format('YYYY-MM-DD'), id]).then((results)=>
             {
                 return this.getOneById(id); // on renvoie l'utilisateur qui a été modifié
             });
@@ -114,13 +117,14 @@ export class UserModel
         });
     }
 
-
+    //UPDDATE  for ADMIN
     public static async updateUserById(id: any, user: any)
     {
         return connect().then((conn) =>
         {
             return conn.query('UPDATE users SET firstname=?, lastname=?, email=?, phone_number=?,  number_street=?, street=?, zipcode=?, city=?, country=?, extra_info=?, gender=?, birth_date=?, admin=? WHERE id=?',
-            [user.firstname, user.lastname, user.email, user.phone_number, user.number_street, user.street, user.zipcode, user.city, user.country, user.extra_info, user.gender, user.birth_date, user.admin, id]).then((results)=>
+            [user.firstname, user.lastname, user.email, user.phone_number, user.number_street, user.street, 
+                user.zipcode, user.city, user.country, user.extra_info, user.gender, moment(user.birth_date).format('YYYY-MM-DD'), user.admin, id]).then((results)=>
             {
                 return this.getOneById(id); // on renvoie l'utilisateur qui a été modifié
             });

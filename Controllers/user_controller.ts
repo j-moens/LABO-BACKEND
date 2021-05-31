@@ -78,7 +78,7 @@ export namespace UserController
         }
     }
 
-    //UPDATE-PUT
+    //UPDATE-PUT for Admin
     export async function updateUser(req: Request, res:Response, next: NextFunction)
     {
         try{
@@ -92,6 +92,8 @@ export namespace UserController
             res.status(500).send(err);
         }
     }
+
+     //UPDATE-PUT for users
 
     export async function updateUserCommon(req: Request, res:Response, next: NextFunction)
     {
@@ -144,7 +146,7 @@ export namespace UserController
             const updatedUser = new User(req.body);
             // Get the username from the token
             const email = req.decoded.email;
-
+           
             if(email === user.email)
             {
                 if (req.decoded.admin)
