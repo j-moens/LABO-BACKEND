@@ -36,7 +36,17 @@ export class Server
 
         this.init_routes();
 
-       
+        /*
+        GENERATE CERTIFICATE : 
+            - openssl.exe genrsa -out certificate/private.pem 2048
+            - openssl.exe rsa -in certificate/private.pem -outform PEM -pubout -out certificate/public.pem
+            - openssl req -new -key certificate/private.pem -out certificate/certificate.csr
+            - openssl x509 -req -days 365 -in certificate/certificate.csr -signkey certificate/private.pem -out certificate/certificate.crt
+        */
+            let key = fs.readFileSync('certificate/private.pem', 'utf8');
+            let certif = fs.readFileSync('certificate/certificate.crt', 'utf8');
+            let credentials = { key: key, cert: certif };
+            this.httpsServer = https.createServer(credentials, this.app);
 
     }
     private init_routes()
@@ -65,6 +75,10 @@ export class Server
     public start()
     {
         
-        this.app.listen(8000);
+               // run with http
+        //this.app.listen(8000);
+
+        // run with https
+        this.httpsServer.listen(8000);
     }
 }
