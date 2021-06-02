@@ -8,9 +8,11 @@ export class DetailsPhoneRouter
     constructor()
     {
         this.router = Router();
-    
+        
         this.router.get('/', DetailsPhoneController.getAll);
 
+        this.router.get ('/fk_products/:id', DetailsPhoneController.getOneByProductId) // on prend le getOneByProductId -> pour détails phone dans le front
+ 
         this.router.get('/:id', DetailsPhoneController.getOneById);
 
         this.router.post('/create', DetailsPhoneController.createDetailsPhone);
@@ -18,6 +20,8 @@ export class DetailsPhoneRouter
         this.router.delete('/:id', DetailsPhoneController.deleteDetailsPhone);
 
         this.router.put('/:id', DetailsPhoneController.updateDetailsPhone);
+
+      
 
     }
 }

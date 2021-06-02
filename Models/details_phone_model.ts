@@ -97,5 +97,16 @@ export class DetailsPhoneModel
         });
     }
 
+       //Get One By Product Id : pour voiur les détails des produits dans le front
+       public static async getOneByProductId(id)
+       {
+           return connect().then((conn) =>
+           {
+               return conn.query('SELECT * FROM details_phone WHERE fk_products=?', [id] ).then((results) => 
+               {
+                   return results;
+               });
+           });
+       }
 
 }

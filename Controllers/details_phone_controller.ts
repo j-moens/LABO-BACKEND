@@ -65,6 +65,20 @@ export class DetailsPhoneController
         }
     }
 
+    //getOneByProductId : pour voir les détails des produits dans le front
+    public static async getOneByProductId (req: Request, res:Response, next: NextFunction)
+    {
+        try{
+            
+            const up = await DetailsPhoneModel.getOneByProductId(req.params.id);
+            res.json(up);
+        }
+        catch(err)
+        {
+            res.status(500).send(err);
+        }
+    }
+
 
     
     // GET ONE BY NAME
