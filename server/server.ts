@@ -12,17 +12,21 @@ import { PromotionRouter } from '../Routers/promotions_router';
 import { OrderProductRouter } from '../Routers/order_products';
 import { OrderRouter } from '../Routers/order_router';
 import { AuthentificationRouter } from '../Routers/authentification_router';
+import * as session from "express-session";
 
 
 export class Server 
 {
     private app: express.Application;
     private httpsServer: https.Server;
+    
    
-
     constructor()
     {
-        /*
+      
+        var session = require('express-session');
+
+       /*
         required : 
         npm install ts-node @types/express typescript
         */
@@ -33,6 +37,17 @@ export class Server
         // Body parser is now replaced by 'express'
         this.app.use(express.json());
         this.app.use(express.urlencoded({ extended: false }));
+
+        // for session storage for basket
+        this.app.use(session({
+          secret: 'my secret',
+          resave: true,
+          saveUninitialized: true,
+          cookie : {secure : true}
+      }));
+
+  
+
 
         this.init_routes();
 
@@ -47,8 +62,10 @@ export class Server
             let certif = fs.readFileSync('certificate/certificate.crt', 'utf8');
             let credentials = { key: key, cert: certif };
             this.httpsServer = https.createServer(credentials, this.app);
-
     }
+
+    
+
     private init_routes()
     {
 
@@ -63,7 +80,7 @@ export class Server
         this.app.use('/api/order_products', new OrderProductRouter().router);
         this.app.use('/api/orders', new OrderRouter().router);
        
-
+        // this.app.use('/api/basket', new BasketRouter().router);
        
       
         this.app.use(AuthentificationRouter.checkAuthorization);  // require authenification from here
@@ -74,6 +91,9 @@ export class Server
 
     
     }
+
+    
+
     public start()
     {
         
