@@ -13,6 +13,7 @@ import { OrderProductRouter } from '../Routers/order_products';
 import { OrderRouter } from '../Routers/order_router';
 import { AuthentificationRouter } from '../Routers/authentification_router';
 import * as session from "express-session";
+import { BasketRouter } from '../Routers/basket_router';
 
 
 export class Server 
@@ -80,7 +81,7 @@ export class Server
         this.app.use('/api/order_products', new OrderProductRouter().router);
         this.app.use('/api/orders', new OrderRouter().router);
        
-        // this.app.use('/api/basket', new BasketRouter().router);
+         this.app.use('/api/basket', new BasketRouter().router);
        
       
         this.app.use(AuthentificationRouter.checkAuthorization);  // require authenification from here
