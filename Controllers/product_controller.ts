@@ -8,6 +8,7 @@ export class ProductController
     {
          const results =  await ProductModel.getAll();
          res.json(results);
+         
         
     }
 
