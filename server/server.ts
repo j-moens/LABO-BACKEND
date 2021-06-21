@@ -34,6 +34,8 @@ export class Server
 
         // create the application
         this.app = express();
+      
+        this.app.use('/img',express.static('img')); // for img
         this.app.use(cors());
         // Body parser is now replaced by 'express'
         this.app.use(express.json());
@@ -70,7 +72,7 @@ export class Server
     private init_routes()
     {
 
-       
+      
         this.app.use('/api/token', new AuthentificationRouter().router);
         this.app.use('/api/users-common', new UserCommonRouter().router); // usercommon router (create and get by username)
         this.app.use('/api/products', new ProductRouter().router);

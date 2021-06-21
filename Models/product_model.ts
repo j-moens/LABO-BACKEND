@@ -8,6 +8,7 @@ export class Product
     price : number;
     reference: number;
     fk_model: number;
+    img : string;
 
 
     constructor(data: any)
@@ -18,8 +19,7 @@ export class Product
         this.price = data.price;
         this.reference = data.reference ;
         this.fk_model = data.fk_model ;
-  
-      
+        this.img = data.img;
     }
 }
 
@@ -43,7 +43,7 @@ export class ProductModel
     {
         return connect().then((conn) =>
         {
-            return conn.query('SELECT id, name, description, price, reference FROM products WHERE id=?', id).then((results) =>
+            return conn.query('SELECT id, name, description, price, reference, img FROM products WHERE id=?', id).then((results) =>
             {
                 return results;
             });
