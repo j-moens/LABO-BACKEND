@@ -46,7 +46,9 @@ export class DetailsPhoneModel
         {
             return conn.query('SELECT * FROM details_phone WHERE id=?', id).then((results) =>
             {
+               // console.log(results);
                 return results;
+                
             });
         });
 
