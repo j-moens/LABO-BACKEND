@@ -1,5 +1,6 @@
 import { Router, Request, Response, NextFunction } from 'express';
 import{OrderProduct, OrderProductModel} from '../Models/order_products_model';
+import { Product, ProductModel } from '../Models/product_model';
 
 export class OrderProductsController
 {
@@ -24,13 +25,17 @@ export class OrderProductsController
     //CREATE ( INSERT) - POST
     public static async createOrderProduct(req: Request, res:Response, next: NextFunction)
     {
+       
         try{
-            var order_product = new OrderProduct(req.body);
-
+            
+        var order_product = new OrderProduct(req.body);
+     
+          
         const order_products =  await OrderProductModel.insertOrderProduct(order_product);
-
+         
         
         res.json(order_products);
+        
         }catch(err)
         {
             res.status(500).send(err);

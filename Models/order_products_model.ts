@@ -56,7 +56,8 @@ export class OrderProductModel
     {
         return connect().then((conn) =>
         {
-            return conn.query('INSERT INTO order_products (fk_order, fk_products, quantity) VALUES (?, ?, ?)',
+            //NSERT INTO order_products (fk_order, fk_products, quantity)  VALUES (?, ?, ?)
+            return conn.query('INSERT INTO order_products (fk_order, fk_products, quantity)  VALUES (?, ?, ?)', 
             [order_products.fk_order, order_products.fk_products, order_products.quantity]).then(() =>
             {
                 return this.getAll();

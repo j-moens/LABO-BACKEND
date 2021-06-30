@@ -6,7 +6,7 @@ export class Order
     delivery_time : Date;
     shipping_cost: number;
     fk_users : number;
-    
+    order_complete : boolean;
 
     constructor(data: any)
     {
@@ -14,6 +14,7 @@ export class Order
         this.delivery_time = data.delivery_time;
         this.shipping_cost = data.shipping_cost;
         this.fk_users = data.fk_users;
+        this.order_complete = data.order_complete;
       
     }
 }
@@ -34,11 +35,23 @@ export class OrderModel
     }
 
     //GET ONE BY ID
+    // public static async getOneById(reference)
+    // {
+    //     return connect().then((conn) =>
+    //     {
+    //         return conn.query('SELECT * FROM orders WHERE reference=?', reference).then((results) =>
+    //         {
+    //             return results;
+    //         });
+    //     });
+
+    // }
+
     public static async getOneById(reference)
     {
         return connect().then((conn) =>
         {
-            return conn.query('SELECT * FROM orders WHERE reference=?', reference).then((results) =>
+            return conn.query('SELECT * FROM orders INNER JOIN users WHERE orders.fk_users = users.id', reference).then((results) =>
             {
                 return results;
             });
@@ -46,19 +59,22 @@ export class OrderModel
 
     }
 
- 
 
 
     //INSERT en POST
     public static async insertOrder(order)
     {
+        
         return connect().then((conn) =>
         {
             return conn.query('INSERT INTO orders (delivery_time, shipping_cost, fk_users) VALUES (?, ?, ?)',
-            [order.delivery_time, order.shipping_cost, order.fk_users]).then(() =>
+            [order.delivery_time, order.shipping_cost, order.fk_users]).then((results) =>
             {
-                return this.getAll();
+                console.log(results);
+               //return this.getOneById(results.insertedId);
+               return results.insertId;
             });
+
         });
     }
 

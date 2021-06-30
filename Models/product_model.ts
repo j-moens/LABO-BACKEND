@@ -9,6 +9,7 @@ export class Product
     reference: number;
     fk_model: number;
     img : string;
+    stock : number;
 
 
     constructor(data: any)
@@ -20,6 +21,7 @@ export class Product
         this.reference = data.reference ;
         this.fk_model = data.fk_model ;
         this.img = data.img;
+        this.stock = data.stock;
     }
 }
 
